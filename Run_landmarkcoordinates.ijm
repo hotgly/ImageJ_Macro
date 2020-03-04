@@ -1,0 +1,1 @@
+run("Landmark Correspondences", "source_image=Drift template_image=Ref transformation_method=[Least Squares] alpha=1 mesh_resolution=32 transformation_class=Rigid interpolate show_matrix");
