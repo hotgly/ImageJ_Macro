@@ -2,6 +2,7 @@
 //concatenate in correct sequence and then put in the drift occurance, frame pivots and direction of rotation below;
 //First input window, to acquire the drift numbers and imagewindowname
 imageName = getTitle();
+//remove the file type extension of the imagename 
 if(indexOf(imageName,".")!=-1){
 	imageName=substring(imageName,0,indexOf(imageName,"."));
 	rename(imageName);

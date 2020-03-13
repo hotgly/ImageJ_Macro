@@ -1,5 +1,5 @@
 // This Macro opens a directory, and also reaches all levels subdirectory,import data stamp and image sequence and output the signal and date records.
-importDir = getDirectory("Choose the Parent Directory cintaining all but images for this experiment:");
+importDir = getDirectory("Choose the Parent Directory containing all but images for this experiment:");
 importDirName = File.getName(importDir);
 //Input the device parameter
 Dialog.create("Select the imaging device:");
@@ -42,7 +42,7 @@ function processFile(imageDir, imageFile, inframe) {
 	//IJ.log("processing file " + imageFile);
 	open(imageDir + imageFile);
 	frame ++;
-	//TODO: splitimage and record the signal
+	//Split image and record the signal
 	setResult("Frame", frame-1, frame);
 	setResult("FrameName", frame-1, imageFile); 
 	setResult("DateModified", frame-1, File.dateLastModified(imageDir+imageFile)); 
@@ -53,13 +53,14 @@ function processFile(imageDir, imageFile, inframe) {
 //Crop and split the concatenated stacks
 function processImage(imageFile, inframe){
 	frame = inframe;
-	Channel1 = "_Red";
-	Channel2 = "_Green";
+	Channel1 = "_Green";
+	Channel2 = "_Red";
 	if(deviceName == "Piper2") {
-		Channel1 = "_Green";
-		Channel2 = "_Red";
+		Channel1 = "_Red";
+		Channel2 = "_Green";
+
 	}
-//Crop and copy left channel into image series
+    //Crop and copy left channel into image series
 	selectWindow(imageFile);
 	makeRectangle(0, 0, 320, 512);
 	List.setMeasurements()
@@ -74,7 +75,7 @@ function processImage(imageFile, inframe){
 		run("Add Slice");
 		run("Paste");
 	}
-//Crop and copy right channel into image series
+    //Crop and copy right channel into image series
 	selectWindow(imageFile);
 	makeRectangle(320, 0, 320, 512);
 	List.setMeasurements();
@@ -89,10 +90,10 @@ function processImage(imageFile, inframe){
 		run("Add Slice");
 		run("Paste");
 	}
-//Close original image to save memory
+	//Close original image to save memory
 	selectWindow(imageFile);
 	close();
-//Record brightness signal
+	//Record brightness signal
 	if(deviceName == "Piper2") {
 		temp = greenSignal;
 		greenSignal = redSignal;
